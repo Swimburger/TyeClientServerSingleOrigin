@@ -1,0 +1,21 @@
+name: tyeclientserversingleorigin
+services:
+- name: client
+  project: Client/Client.csproj
+  bindings:
+  - port: 5001
+    protocol: https
+- name: server
+  project: Server/Server.csproj
+  bindings:
+  - port: 5003
+    protocol: https
+ingress:
+  - name: ingress
+    bindings:
+      - port: 8080
+        protocol: https
+    rules:
+      - path: /api
+        service: server
+      - service: client
